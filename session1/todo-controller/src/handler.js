@@ -91,6 +91,7 @@ module.exports.get = async (event, context, callback) => {
 
     return resp(200, `${JSON.stringify(data.Item)}`)
   } catch (err) {
+    console.error(err)
     return resp(404, `id:${id}`)
   }
 };
