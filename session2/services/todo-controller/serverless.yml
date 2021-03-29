@@ -1,0 +1,68 @@
+service: todo-controller
+frameworkVersion: '2'
+
+provider:
+  name: aws
+  runtime: nodejs12.x
+  lambdaHashingVersion: 20201221
+  stage: dev
+  region: us-east-1
+  apiGateway:
+    shouldStartNameWithService: true
+  tracing:
+    lambda: true
+    apiGateway: true
+  environment:
+    DYNAMODB_TABLE:
+      "Fn::ImportValue": "todo-${self:provider.stage}"
+  iamRoleStatements:
+    - ${file(../../serverless.common.yml):lambdaPolicyXRay}
+    - Effect: "Allow"
+      Action:
+        - dynamodb:Query
+        - dynamodb:Scan
+        - dynamodb:GetItem
+        - dynamodb:PutItem
+        - dynamodb:UpdateItem
+        - dynamodb:DeleteItem
+      Resource: "arn:aws:dynamodb:${opt:region, self:provider.region}:*:table/todo-${self:provider.stage}"
+
+plugins:
+  - serverless-bundle
+
+functions:
+  add:
+    handler: src/handler.add
+    events:
+      - http:
+          path: todo
+          method: post
+          cors: true
+  update:
+    handler: src/handler.update
+    events:
+      - http:
+          path: todo/{id}
+          method: put
+          cors: true
+  delete:
+    handler: src/handler.remove
+    events:
+      - http:
+          path: todo/{id}
+          method: delete
+          cors: true
+  get:
+    handler: src/handler.get
+    events:
+      - http:
+          path: todo/{id}
+          method: get
+          cors: true
+  list:
+    handler: src/handler.list
+    events:
+      - http:
+          path: todo
+          method: get
+          cors: true

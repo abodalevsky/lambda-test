@@ -1,0 +1,20 @@
+service: sqs-resource
+frameworkVersion: '2'
+
+provider:
+  name: aws
+  stage: dev
+  region: us-east-1
+
+resources:
+  Resources:
+    ToDoQueue:
+      Type: AWS::SQS::Queue
+      Properties:
+        QueueName: "ToDoQueue"
+  Outputs:
+    ToDoQueue:
+      Value:
+        "Ref": ToDoQueue
+      Export:
+        Name: "ToDoQueue"

@@ -1,0 +1,41 @@
+service: sqs-consumer
+frameworkVersion: '2'
+
+custom:
+  sqs_arn: arn:aws:sqs:${opt:region, self:provider.region}:247346790293:ToDoQueue
+
+provider:
+  name: aws
+  runtime: nodejs12.x
+  lambdaHashingVersion: 20201221
+  stage: dev
+  region: us-east-1
+  apiGateway:
+    shouldStartNameWithService: true
+  tracing:
+    lambda: true
+    apiGateway: true
+  environment:
+    DYNAMODB_TABLE:
+      "Fn::ImportValue": "todo-${self:provider.stage}"
+  iamRoleStatements:
+    - ${file(../../serverless.common.yml):lambdaPolicyXRay}
+    - Effect: "Allow"
+      Action:
+        - dynamodb:PutItem
+      Resource: "arn:aws:dynamodb:${opt:region, self:provider.region}:*:table/todo-${self:provider.stage}"
+    - Effect: Allow
+      Action:
+        - sqs:ReceiveMessage
+      Resource: ${self:custom.sqs_arn}
+
+plugins:
+  - serverless-bundle
+
+functions:
+  consumeSqsMessage:
+    handler: src/handler.consume
+    events:
+      - sqs:
+          arn: ${self:custom.sqs_arn}
+          batchSize: 1

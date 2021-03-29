@@ -1,0 +1,30 @@
+service: ddb-resource
+frameworkVersion: '2'
+
+provider:
+  name: aws
+  stage: dev
+  region: us-east-1
+
+resources:
+  Resources:
+    ToDoDynamoDbTable:
+      Type: AWS::DynamoDB::Table
+      DeletionPolicy: Retain
+      Properties:
+        AttributeDefinitions:
+          - AttributeName: id
+            AttributeType: S
+        KeySchema:
+          - AttributeName: id
+            KeyType: HASH
+        ProvisionedThroughput:
+          ReadCapacityUnits: 1
+          WriteCapacityUnits: 1
+        TableName: todo-${self:provider.stage}
+  Outputs:
+    ToDoDynamoDbTable:
+      Value:
+        "Ref": ToDoDynamoDbTable
+      Export:
+        Name: todo-${self:provider.stage}

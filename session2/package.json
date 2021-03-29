@@ -1,0 +1,16 @@
+{
+  "name": "session2",
+  "version": "1.0.0",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "author": "",
+  "license": "ISC",
+  "devDependencies": {
+    "aws-sdk": "^2.871.0",
+    "serverless-bundle": "^4.2.2"
+  },
+  "dependencies": {
+    "aws-xray-sdk": "^3.2.0"
+  }
+}

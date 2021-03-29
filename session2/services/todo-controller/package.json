@@ -1,0 +1,13 @@
+{
+  "name": "todo-controller",
+  "version": "1.0.0",
+  "dependencies": {
+    "uuid": "^8.3.2"
+  },
+  "devDependencies": {},
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "author": "",
+  "license": "ISC"
+}
