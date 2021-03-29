@@ -53,3 +53,18 @@ Folder `csv-files` - example of csv fileto processing.
 BucketName: ab-serverless-test-23032001-1201
 
 CSV file should be valid. It is assumed that first line is a caption and ignored.
+
+## Session 2
+1. Go to each folders in resources and run 
+```bash
+sls deploy
+```
+2. Go to each folder in services and run
+```bash
+sls deploy
+```
+3. upload csv file from session 1
+4. check that items where added
+```bash
+curl --location --request GET 'https://atpopdqjzd.execute-api.us-east-1.amazonaws.com/dev/todo'
+```
