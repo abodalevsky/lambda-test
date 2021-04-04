@@ -68,3 +68,6 @@ sls deploy
 ```bash
 curl --location --request GET 'https://atpopdqjzd.execute-api.us-east-1.amazonaws.com/dev/todo'
 ```
+## Session 3
+It uses CDK.
+To deploy [see here](session3/todo-org/README.md)

@@ -1,0 +1,28 @@
+{
+  "name": "todo-org",
+  "version": "0.1.0",
+  "bin": {
+    "todo-org": "bin/todo-org.js"
+  },
+  "scripts": {
+    "build": "echo \"The build step is not required when using JavaScript!\" && exit 0",
+    "cdk": "cdk",
+    "test": "jest"
+  },
+  "devDependencies": {
+    "@aws-cdk/assert": "1.96.0",
+    "aws-cdk": "1.96.0",
+    "esbuild": "^0.11.5",
+    "jest": "^26.4.2"
+  },
+  "dependencies": {
+    "@aws-cdk/aws-apigateway": "^1.96.0",
+    "@aws-cdk/aws-dynamodb": "^1.96.0",
+    "@aws-cdk/aws-lambda-event-sources": "^1.96.0",
+    "@aws-cdk/aws-lambda-nodejs": "^1.96.0",
+    "@aws-cdk/aws-s3": "^1.96.0",
+    "@aws-cdk/aws-sqs": "^1.96.0",
+    "@aws-cdk/core": "1.96.0",
+    "uuid": "^8.3.2"
+  }
+}
